@@ -1,7 +1,7 @@
 export class Vendas {
     private email : string;
     private codigoproduto : number;
-    private datavenda : Date;
+    private datavenda : string;
     private codigovendas : number;
     private pecaquantidade : number; 
     private valortotal : number;
@@ -9,7 +9,7 @@ export class Vendas {
 
 
 
-    constructor(email : string,codigoproduto : number,datavenda : Date,codigovendas : number,pecaquantidade : number,valortotal : number,statusvendas : string){
+    constructor(email : string,codigoproduto : number,datavenda : string,codigovendas : number,pecaquantidade : number,valortotal : number,statusvendas : string){
         this.email =  email;
         this.codigoproduto = codigoproduto;
         this.datavenda = datavenda;

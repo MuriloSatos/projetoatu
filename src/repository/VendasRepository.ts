@@ -30,8 +30,9 @@ export class VendasRepository {
 
         return listaVendas;
     }
-    public async inserirVenda(email: string, codigoproduto: number, datavenda: Date, codigovendas: number, pecaquantidade: number, valortotal: number, statusvendas: string) {
-        let query = "INSERT INTO sistema.vendas (email,codigoproduto,datavenda,codigovendas,peçaquantidade,valortotal,statusvendas) VALUES ($1,$2,$3,$4,$5,$6,$7)"
+    
+    public async inserirVenda(email: string, codigoproduto: number, datavenda: string, codigovendas: number, pecaquantidade: number, valortotal: number, statusvendas: string) {
+        let query = "INSERT INTO sistema.vendas (email,codigoproduto,datavenda,codigovendas,pecaquantidade,valortotal,statusvendas) VALUES ($1,$2,$3,$4,$5,$6,$7)"
         await this.pool.query(query, [email, codigoproduto, datavenda, codigovendas, pecaquantidade, valortotal, statusvendas]);
 
     }
@@ -57,5 +58,12 @@ export class VendasRepository {
         return result.rows
 
     }
+
+    public async atualizarvenda(cocodigovendas : number, statusvendas: string) {
+        const query = 'UPDATE sistema.vendas SET statusvendas = $2 WHERE codigovendas = $1;'
+        const result = await this.pool.query(query, [cocodigovendas ,statusvendas])
+        return result.rows
+    }
+
 
 }

@@ -12,7 +12,7 @@ import { ProdutoRepository } from "../repository/ProdutoRepository";
 
 export class ProdutoView {
     private produto: ProdutoService;
-    private prompt: promptSync;
+    private prompt: any;
 
     constructor() {
         this.produto = new ProdutoService()
@@ -26,7 +26,8 @@ export class ProdutoView {
         console.log("2 - Inserir Produto")
         console.log("3 - Buscar produto")
         console.log("4 - Deletar produto")
-        console.log("5 - Sair")
+        console.log("5 - Atualizar Venda")
+        console.log("6 - Sair")
         console.log("")
 
 
@@ -39,7 +40,7 @@ export class ProdutoView {
                 break;
             case "2":
                 let codigoproduto1 = this.prompt("Qual o codigo do produto: ")
-                let nomeproduto1 = this.prompt("Qual o tipo do produto: ")
+                let nomeproduto1 = this.prompt("Qual o nome do produto: ")
                 let tipoproduto1 = this.prompt("Qual o tipo do produto: ")
                 let preco1 = this.prompt("Qual o preco do produto: ")
                 let tamanhoproduto1 = this.prompt("Qual o tamanho do produto: ")
@@ -57,9 +58,15 @@ export class ProdutoView {
                 await this.produto.deletarProduto(deleteproduto)
                 console.table(await this.produto.listarProdutos())
                 this.exibirMenu()
-
                 break;
             case "5":
+                let atuproduto = this.prompt("Qual o codigo do produto que voce deseja mudar : ")
+                let precoproduto = this.prompt("Qual o preco do produto : ")
+                await this.produto.atualizarproduto(atuproduto,precoproduto)
+                console.table(await this.produto.listarProdutos())
+                this.exibirMenu()
+                break;
+            case "6":
                 console.log("Voce saiu...")
                 break;
         }

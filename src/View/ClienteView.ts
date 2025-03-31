@@ -1,14 +1,15 @@
-const prompt = require("prompt-sync")
+
+import PromptSync from "prompt-sync";
 import { ClienteService } from "../service/ClienteService";
-import promptSync from "prompt-sync";
+
 
 export class ClienteView {
     private cliente: ClienteService;
-    private prompt: promptSync;
+    private prompt: any;
 
     constructor() {
         this.cliente = new ClienteService()
-        this.prompt = promptSync();
+        this.prompt = PromptSync();
     }
 
 
@@ -40,10 +41,10 @@ export class ClienteView {
                 break;
             case "3":
                 let cpfusuario = this.prompt("Digite o cpf do usuario que deseja buscar: ")
-                console.table(await this.cliente.buscarPorCpf(cpfusuario))
+                 await this.cliente.buscarPorCpf(cpfusuario)
+                
                 this.exibirMenu()
-
-                break;
+                    break;
             case "4":
                 let deletecliente = this.prompt("Digite o cpf do cliente que deseja excluir: ")
                 await this.cliente.deletarCliente(deletecliente)
@@ -53,13 +54,18 @@ export class ClienteView {
             case "5":
                 let atualizacliente = this.prompt("Qual o email do cliente que voce deseja mudar: ")
                 let cliente1 = this.prompt("Digite a nova senha do cliente: ")
-                await this.cliente.atualizarcliente(atualizacliente , cliente1 )
+                await this.cliente.atualizarcliente(atualizacliente, cliente1)
                 console.table(await this.cliente.listarClientes())
                 this.exibirMenu()
                 break;
             case "6":
                 console.log("Voce saiu...")
                 break;
+            default:
+                console.log("opçao invalida, digite de 1 a 6 " )
+                this.exibirMenu()
+         
         }
+        
     }
 }

@@ -1,80 +1,56 @@
-
-
-
-import { ClienteService } from "./service/ClienteService";
-import { ProdutoService } from "./service/ProdutoService";
-import { ClienteRepository } from "./repository/ClienteRepository";
-import { Vendas } from "./entidades/Vendas";
-import { VendasService } from "./service/VendasService";
+import PromptSync from "prompt-sync";
 import { ClienteView } from "./View/ClienteView";
 import { ProdutoView } from "./View/ProdutoView";
 import { VendaView } from "./View/VendaView";
 
+export class MenuPrincipal {
+    private servico: ClienteView;
+    private servico1: ProdutoView;
+    private servico2: VendaView;
+    private prompt: PromptSync.Prompt;
 
-const servico2 = new ClienteView()
-servico2.exibirMenu()
+    constructor() {
+        this.servico = new ClienteView();
+        this.servico1 = new ProdutoView();
+        this.servico2 = new VendaView();
+        this.prompt = PromptSync(); // Instância única de PromptSync
+    }
 
-/*
-const servico5 = new ProdutoView()
-servico5.exibirMenu()
-*/
-/*
- const servico3 = new VendaView()
-servico3.exibirMenu()
-*/
+    // Função para exibir o menu e tratar as opções
+    async exibirMenuPrincipal() {
+        console.log(" ");
+        console.log("Menu Principal");
+        console.log(" ");
+        console.log("1- Menu de Clientes");
+        console.log("2- Menu de Produtos");
+        console.log("3- Menu de Vendas");
+        console.log("4- Sair");
+        console.log(" ");
 
-/*
-//const servico = new ClienteService();
-//async function teste() {
-//  console.table(await servico.listarClientes())
-//}
-//teste()
-/* const servico1 = new ProdutoService();
-async function teste1() {
+        const opcao = this.prompt("Selecione uma das opções acima: "); // Usando this.prompt
 
- console. table(await servico1.listarProdutos);
- servico1.inserirProduto(4,"bicicleta montada","bicicleta",1000,"29","gios")
- console.table(await servico1.listarProdutos())
-
+        switch (opcao) {
+            case "1":
+                await this.servico.exibirMenu(); // Acesso correto ao método de ClienteView
+                break;
+            case "2":
+                await this.servico1.exibirMenu(); // Acesso correto ao método de ProdutoView
+                break;
+            case "3":
+                await this.servico2.exibirMenu(); // Acesso correto ao método de VendaView
+                break;
+            case "4":
+                console.log("Você saiu...");
+               
+                break;
+            default:
+                console.log("Opção inválida, digite de 1 a 4");
+                await this.exibirMenuPrincipal(); // Recursão para tentar novamente
+                break;
+        }
+    }
 }
-teste1()
-servico1.listarProdutos();
-*/
 
-/*
-const servico4 = new VendasService();
-
-async function teste2() {
-    
-
-    console.table(await servico4.listarVendas())
-    servico4.inserirVenda("mu@gmail.com",14,"12-02-2025",3,10,1099,"vendida")
-    
-    console.table(await servico4.listarVendas())
-
-}
-
-teste2()
-servico4.listarVendas()
-
-/*
- const servico7 = new ClienteService();
-async function teste5() {
-   
-    console. table(await servico7.listarClientes);
-    servico7.inserirCliente("Victor2", "victor3", "98765432101","victor13@gmail.com");
-    console.table(await servico7.listarClientes())
-
-}
-teste5()
-servico7.listarClientes()
-*/
-
-/*
-async function vendas(){
-    const ven = new VendasService()
-    console.table(await ven.listarVendas())
-}
-vendas()
-*/
-
+// Criação da instância e chamada do menu principal
+const menu = new MenuPrincipal();
+menu.exibirMenuPrincipal(); // Chamando o método para exibir o menu

@@ -19,7 +19,7 @@ export class ProdutoRepository {
 
         const query = "SELECT * FROM sistema.produto";
         const result = await this.pool.query(query);
-        console.log("vou mostrar o result")
+        console.log("Digite um codigo do produto existente")
         //console.log(result)
         const listaProduto: Produto[] = [];
 
@@ -61,8 +61,18 @@ export class ProdutoRepository {
 
         }
         return listaProduto;
+    } catch (error){
+        throw new Error("produto nao encontrado", error.mensagem )
     }
+    
+    
+        
 
+    public async atualizarproduto(codigoproduto : number,preco : number){
+        const query = 'UPDATE sistema.produto  SET  preco =  $2 WHERE codigoproduto = $1;'
+        const result = await this.pool.query(query,[codigoproduto ,  preco])
+        return result.rows
+    }
 
 
 
